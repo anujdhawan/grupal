@@ -4,8 +4,8 @@
 /**
 * Display help and module information
 */
-require_once("appsapis.php")
-require_once("provisioning.php")
+//require_once("appsapis.php")
+//require_once("provisioning.php")
 
 /**
 * Valid permissions for this module
