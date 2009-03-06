@@ -33,3 +33,79 @@ function grupal_help($path, $arg) {
   }
   return $output;
 } // function grupal_help
+
+/**
+* Menu items for this module
+* @return array An array of menu items
+*/
+function grupal_menu() {
+
+  $items = array();
+
+  $items[] = array(
+    'path' => 'admin/settings/grupal',
+    'title' => t('Google Apps module settings'),
+    'callback' => 'drupal_get_form',
+    'callback arguments' => 'grupal_admin',
+    'access' => user_access('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+   );
+
+  return $items;
+} // function grupal_menu
+
+/**
+* Admin form for this module
+* @return system settings form
+*/
+function grupal_admin() {
+  $form['global'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Google Apps service settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['global']['grupal_enabled'] = array(
+    '#type' => 'radios',
+    '#title' => t('Google Apps enabled'),
+    '#default_value' => variable_get('grupal_enabled', 0),
+    '#options' => array(t('Disabled'), t('Enabled')),
+    '#description' => t("Google Apps integrations enabled or disabled.")
+  );
+  $form['global']['grupal_domain'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Google Apps domain'),
+    '#default_value' => variable_get('grupal_domain', 'example.com'),
+    '#size' => 32,
+    '#maxlength' => 255,
+    '#description' => t("Google Apps domain, may differ from Drupal domain.")
+  );
+  $form['global']['grupal_admin_email'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Google Apps admin email'),
+    '#default_value' => variable_get('grupal_admin_email', 'admin@example.com'),
+    '#size' => 32,
+    '#maxlength' => 128,
+    '#description' => t("Google Apps administrator email.")
+  );
+  return system_settings_form($form);
+} // function grupal_admin
+
+function grupal_user($op, &$edit, &$account, $category = NULL) {
+  
+  $grupal_domain = variable_get('grupal_domain', '');
+  $grupal_username = grupal_cleanname($account->name);
+
+  if ($op == 'insert') {
+    // Create a new account on 'insert'
+  }
+} // function grupal_user
+
+/**
+* Filter unsupported characters from username
+* @param name Drupal username
+* @return Google Apps compatible clean username
+*/
+function grupal_cleanname($name) {
+  return eregi_replace("[^a-z0-9\.]", "", strtolower($name));
+} // function grupal_cleanname
