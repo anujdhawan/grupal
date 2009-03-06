@@ -1,2 +1,18 @@
 <?php
 // $Id$
+
+/**
+* Display help and module information
+* @param path which path of the site we're displaying help
+* @param arg array that holds the current path as would be returned from arg() function
+* @return help text for the path
+*/
+function onthisdate_help($path, $arg) {
+  $output = '';
+  switch ($path) {
+    case "admin/help#grupal":
+      $output = '<p>'.  t("Google Apps integrations for Drupal") .'</p>';
+      break;
+  }
+  return $output;
+} // function onthisdate_help
