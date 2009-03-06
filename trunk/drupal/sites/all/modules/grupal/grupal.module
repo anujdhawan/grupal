@@ -13,7 +13,7 @@
 * @return array An array of valid permissions for the grupal module
 */
 function grupal_perm() {
-  return array('have google apps account', 'administer google apps');
+  return array('have google apps account', 'administer google apps', 'administer grupal');
 } // function grupal_perm()
 
 /**
@@ -42,84 +42,17 @@ function grupal_help($path, $arg) {
 function grupal_menu() {
 
   $items['admin/settings/grupal'] = array(
-    'path' => 'admin/settings/grupal',
     'title' => t('Google Apps module settings'),
-    'callback' => 'drupal_get_form',
-    'callback arguments' => 'grupal_admin',
-    'access' => user_access('access administration pages'),
-    'type' => MENU_NORMAL_ITEM,
+	'description' => 'Configuration of Google Apps integration points',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('grupal_admin_settings'),
+    'access arguments' => array('administer grupal'),
+	'block callback' => 'system_admin_theme_settings',
+	'file' => 'grupal.admin.inc',
    );
 
   return $items;
 } // function grupal_menu
-
-/**
-* Admin form for this module
-* @return system settings form
-*/
-function grupal_admin() {
-  $form['global'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Google Apps service settings'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-  $form['global']['grupal_enabled'] = array(
-    '#type' => 'radios',
-    '#title' => t('Google Apps enabled'),
-    '#default_value' => variable_get('grupal_enabled', 0),
-    '#options' => array(t('Disabled'), t('Enabled')),
-    '#description' => t("Google Apps integrations enabled or disabled.")
-  );
-  $form['global']['grupal_domain'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Google Apps domain'),
-    '#default_value' => variable_get('grupal_domain', 'example.com'),
-    '#size' => 32,
-    '#maxlength' => 255,
-    '#description' => t("Google Apps domain, may differ from Drupal domain.")
-  );
-  $form['global']['grupal_admin_email'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Google Apps admin email'),
-    '#default_value' => variable_get('grupal_admin_email', 'admin@example.com'),
-    '#size' => 32,
-    '#maxlength' => 128,
-    '#description' => t("Google Apps administrator email.")
-  );
-  $form['global']['grupal_admin_pass'] = array(
-    '#type' => 'password',
-    '#title' => t('Google Apps admin password'),
-    '#default_value' => variable_get('grupal_admin_pass', ''),
-    '#size' => 16,
-    '#maxlength' => 32,
-    '#description' => t("Google Apps administrator password to be used to create accounts.")
-  );
-  $form['global']['grupal_account_status'] = array(
-    '#type' => 'radios',
-    '#title' => t('Google Apps account status on creation'),
-    '#default_value' => variable_get('grupal_account_status', 1),
-    '#options' => array(t('Disabled'), t('Enabled')),
-    '#description' => t("Specify whether accounts should be enabled or suspended on creation.")
-  );
-
-  $form['email'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Google Apps email account settings'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-  $form['email']['grupal_email_quota'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Mail quota'),
-    '#default_value' => variable_get('grupal_email_quota', ''),
-    '#size' => 6,
-    '#maxlength' => 5,
-    '#description' => t('Amount of space available for mail (Mb).'),
-  );
-
-  return system_settings_form($form);
-} // function grupal_admin
 
 /**
 * Handle Drupal 'user' hook events
