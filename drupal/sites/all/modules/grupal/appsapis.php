@@ -35,3 +35,4 @@ function getClientLoginHttpClient($user, $pass)
   $client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $service);
   return $client;
 }
+?>
