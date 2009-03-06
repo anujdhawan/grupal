@@ -6,6 +6,7 @@
 */
 //require_once("appsapis.php")
 //require_once("provisioning.php")
+module_load_include('php', 'grupal', 'appsapis');
 
 /**
 * Valid permissions for this module
@@ -93,10 +94,12 @@ function grupal_admin() {
 
 /**
 * Handle Drupal 'user' hook events
+* http://api.drupal.org/api/function/hook_user
 * @param op What kind of action is being performed.
 * @param edit The array of form values submitted by the user. 
 * @param account The user object on which the operation is being performed.
 * @param category The active category of user information being edited.
+* @return depends on operation, usually none.
 */
 function grupal_user($op, &$edit, &$account, $category = NULL) {
   
