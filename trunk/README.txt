@@ -1,49 +1,13 @@
-#!/usr/bin/env python
-# encoding: utf-8
-"""
-README.py
+grupal - Google Apps integration for Drupal
 
-Created by Sam Johnston on 2009-03-06.
-Copyright (c) 2009 __MyCompanyName__. All rights reserved.
-"""
+Copyright © 2009 The System Administrators' Guild of Ireland Limited
 
-import sys
-import getopt
+Getting Started
+===============
+ - Obtain the latest version of Drupal (developed for 6.x)
+ - Change to 'modules' directory
+ - svn co http://grupal.googlecode.com/svn/trunk/drupal/modules/grupal grupal
 
-
-help_message = '''
-The help message goes here.
-'''
-
-
-class Usage(Exception):
-	def __init__(self, msg):
-		self.msg = msg
-
-
-def main(argv=None):
-	if argv is None:
-		argv = sys.argv
-	try:
-		try:
-			opts, args = getopt.getopt(argv[1:], "ho:v", ["help", "output="])
-		except getopt.error, msg:
-			raise Usage(msg)
-	
-		# option processing
-		for option, value in opts:
-			if option == "-v":
-				verbose = True
-			if option in ("-h", "--help"):
-				raise Usage(help_message)
-			if option in ("-o", "--output"):
-				output = value
-	
-	except Usage, err:
-		print >> sys.stderr, sys.argv[0].split("/")[-1] + ": " + str(err.msg)
-		print >> sys.stderr, "\t for help use --help"
-		return 2
-
-
-if __name__ == "__main__":
-	sys.exit(main())
+Development
+===========
+ - Refer to the Drupal Module Developers Guide http://drupal.org/node/508
