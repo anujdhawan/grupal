@@ -1,5 +1,4 @@
 ; $Id$
 name = Google Apps for Drupal
-description = Google Apps integrations for Drupal, intially targeting
-Provisioning API & Groups API (GData) and Authentication API (SAML2).
+description = Google Apps integrations for Drupal, intially targeting Provisioning API & Groups API (GData) and Authentication API (SAML2).
 core = 6.x
