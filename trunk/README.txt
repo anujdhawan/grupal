@@ -11,3 +11,4 @@ Getting Started
 Development
 ===========
  - Refer to the Drupal Module Developers Guide http://drupal.org/node/508
+ - Review the tutorial at http://drupal.org/node/206753
