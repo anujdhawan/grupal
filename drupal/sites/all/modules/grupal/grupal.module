@@ -91,6 +91,13 @@ function grupal_admin() {
   return system_settings_form($form);
 } // function grupal_admin
 
+/**
+* Handle Drupal 'user' hook events
+* @param op What kind of action is being performed.
+* @param edit The array of form values submitted by the user. 
+* @param account The user object on which the operation is being performed.
+* @param category The active category of user information being edited.
+*/
 function grupal_user($op, &$edit, &$account, $category = NULL) {
   
   $grupal_domain = variable_get('grupal_domain', '');
@@ -99,6 +106,13 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
   if ($op == 'insert') {
     // Create a new account on 'insert'
   }
+  if ($op == 'update') {
+    // Update Google Apps details on 'update'
+  }
+  if ($op == 'delete') {
+    // Suspend or delete user on 'delete'
+  }
+
 } // function grupal_user
 
 /**
