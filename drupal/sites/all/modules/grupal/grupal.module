@@ -6,7 +6,7 @@
 */
 //require_once("./appsapis.php")
 //require_once("provisioning.php")
-#module_load_include('php', 'grupal', 'appsapis');
+module_load_include('php', 'grupal', 'appsapis');
 
 /**
 * Valid permissions for this module
