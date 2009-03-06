@@ -3,16 +3,33 @@
 
 /**
 * Display help and module information
+*/
+require_once("appsapis.php")
+require_once("provisioning.php")
+
+/**
+* Valid permissions for this module
+* @return array An array of valid permissions for the grupal module
+*/
+function grupal_perm() {
+  return array('have google apps account', 'administer google apps');
+} // function grupal_perm()
+
+/**
+* Display help and module information
 * @param path which path of the site we're displaying help
 * @param arg array that holds the current path as would be returned from arg() function
 * @return help text for the path
 */
-function onthisdate_help($path, $arg) {
+function grupal_help($path, $arg) {
   $output = '';
   switch ($path) {
     case "admin/help#grupal":
       $output = '<p>'.  t("Google Apps integrations for Drupal") .'</p>';
       break;
+    case "admin/settings/grupal":
+      $output = '<p>'.  t("Google Apps (http://google.com/a/)"). '</p>';
+      break;
   }
   return $output;
-} // function onthisdate_help
+} // function grupal_help
