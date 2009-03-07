@@ -128,6 +128,22 @@ function grupal_admin_settings() {
     '#description' => t("Specify whether Drupal username changes are " .
       "permitted (which can break links between users).")
   );
+  $form['licensing'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Google Apps module licensing'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['licensing']['grupal_display_footer'] = array(
+    '#type' => 'radios',
+    '#title' => t('Display license compliance footer'),
+    '#default_value' => variable_get('grupal_display_footer', 1),
+    '#options' => array(t('Disabled'), t('Enabled')),
+    '#description' => t('Specify whether the license information should ' .
+      'be displayed in the footer <strong>as required by the ' .
+      '<a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html">' .
+      'AGPLv3</a></strong>.')
+  );
 /* 
   $form['email'] = array(
     '#type' => 'fieldset',
