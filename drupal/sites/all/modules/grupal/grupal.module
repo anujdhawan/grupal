@@ -48,7 +48,15 @@ function grupal_help($path, $arg) {
       $output = '<p>'.  t("Google Apps integrations for Drupal") .'</p>';
       break;
     case "admin/settings/grupal":
-      $output = '<p>'.  t("Google Apps (http://google.com/a/)"). '</p>';
+      $output = t(<<<END
+<p><a href="http://code.google.com/p/grupal/">Grupal</a> provides seamless
+integration between <a href="http://www.drupal.org/">Drupal</a> and
+<a href="http://www.google.com/a/">Google Apps</a>. Supports creating Google
+Apps users, suspending users when blocked in Drupal, synchronising passwords
+when updated in Drupal and suspending or deleting users when deleted in Drupal.
+</p>
+END
+);
       break;
   }
   return $output;
@@ -213,6 +221,15 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
     }
   }
 } // function grupal_user
+
+function grupal_footer($main = 0) {
+  if (variable_get('grupal_display_footer', 1)) {
+    return '<div style="text-align:center; font-size:small; color:gray;">' .
+      '<a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html">' .
+      '<img src="'.drupal_get_path('module', 'grupal').'/agplv3.png" ' .
+      'alt="GNU Affero General Public License" /></a></div>';
+  }
+} // function grupal_footer
 
 /**
 * Filter unsupported characters from username
