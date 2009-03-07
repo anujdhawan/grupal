@@ -18,6 +18,28 @@ function grupal_admin_settings_validate($form, &$form_state) {
 * @return system settings form
 */
 function grupal_admin_settings() {
+  $form['credentials'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Google Apps service credentials'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['credentials']['grupal_admin_email'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Google Apps admin email'),
+    '#default_value' => variable_get('grupal_admin_email', 'admin@example.com'),
+    '#size' => 32,
+    '#maxlength' => 128,
+    '#description' => t("Google Apps administrator email.")
+  );
+  $form['credentials']['grupal_admin_pass'] = array(
+    '#type' => 'password',
+    '#title' => t('Google Apps admin password'),
+    '#default_value' => variable_get('grupal_admin_pass', ''),
+    '#size' => 16,
+    '#maxlength' => 100,
+    '#description' => t("Google Apps administrator password to be used to create accounts.")
+  );
   $form['global'] = array(
     '#type' => 'fieldset',
     '#title' => t('Google Apps service settings'),
@@ -39,28 +61,19 @@ function grupal_admin_settings() {
     '#maxlength' => 255,
     '#description' => t("Google Apps domain, may differ from Drupal domain.")
   );
-  $form['global']['grupal_admin_email'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Google Apps admin email'),
-    '#default_value' => variable_get('grupal_admin_email', 'admin@example.com'),
-    '#size' => 32,
-    '#maxlength' => 128,
-    '#description' => t("Google Apps administrator email.")
-  );
-  $form['global']['grupal_admin_pass'] = array(
-    '#type' => 'password',
-    '#title' => t('Google Apps admin password'),
-    '#default_value' => variable_get('grupal_admin_pass', ''),
-    '#size' => 16,
-    '#maxlength' => 100,
-    '#description' => t("Google Apps administrator password to be used to create accounts.")
-  );
-  $form['global']['grupal_account_status'] = array(
+  $form['global']['grupal_status_created'] = array(
     '#type' => 'radios',
     '#title' => t('Google Apps account status on creation'),
-    '#default_value' => variable_get('grupal_account_status', 1),
-    '#options' => array(t('Disabled'), t('Enabled')),
+    '#default_value' => variable_get('grupal_status_created', 2),
+    '#options' => array(t('Ignore'),t('Suspend'), t('Enable')),
     '#description' => t("Specify whether accounts should be enabled or suspended on creation.")
+  );
+  $form['global']['grupal_status_deleted'] = array(
+    '#type' => 'radios',
+    '#title' => t('Google Apps account status on deletion'),
+    '#default_value' => variable_get('grupal_status_deleted', 1),
+    '#options' => array(t('Ignore'), t('Suspend'), t('Delete')),
+    '#description' => t("Specify whether accounts should be suspended or deleted on deletion.")
   );
 
   $form['email'] = array(
