@@ -79,6 +79,20 @@ function grupal_admin_settings() {
     '#options' => array(t('Ignore'), t('Suspend'), t('Delete')),
     '#description' => t("Specify whether accounts should be suspended or deleted on deletion.")
   );
+  $form['global']['grupal_update_password'] = array(
+    '#type' => 'radios',
+    '#title' => t('Google Apps update password'),
+    '#default_value' => variable_get('grupal_update_password', 1),
+    '#options' => array(t('Disabled'), t('Enabled')),
+    '#description' => t("Specify whether account passwords should be updated when changed.")
+  );
+  $form['global']['grupal_update_suspend'] = array(
+    '#type' => 'radios',
+    '#title' => t('Google Apps update suspend status'),
+    '#default_value' => variable_get('grupal_update_suspend', 1),
+    '#options' => array(t('Disabled'), t('Enabled')),
+    '#description' => t("Specify whether accounts should be suspended when blocked (and vice versa).")
+  );
 
   $form['email'] = array(
     '#type' => 'fieldset',
