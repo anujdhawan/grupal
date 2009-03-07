@@ -42,7 +42,7 @@ function grupal_help($path, $arg) {
 function grupal_menu() {
 
   $items['admin/settings/grupal'] = array(
-    'title' => t('Google Apps module settings'),
+    'title' => t('Google Apps settings'),
 	'description' => 'Configuration of Google Apps integration points',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('grupal_admin_settings'),
@@ -68,11 +68,36 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
   $grupal_domain = variable_get('grupal_domain', '');
   $grupal_username = grupal_cleanname($account->name);
 
+  drupal_set_message("For $account->uid, a $op operation was invoked.");
+
+  if (in_array($op, array('insert', 'update', 'delete'), $op) && ($grupal_domain != '') && variable_get('grupal_enabled', 0)) {
+    try {
+      $client = getClientLoginHttpClient(variable_get('grupal_admin_email', ''), variable_get('grupal_admin_pass', ''));
+      $gapps = new Zend_Gdata_Gapps($client, variable_get('grupal_domain', ''));
+    } catch (Zend_Gdata_App_AuthException $e) {
+      drupal_set_message("Drupal was unable to authenticate to Google Apps:	" . $e->getMessage());
+    }
+  }
+
   if ($op == 'insert') {
     // Create a new account on 'insert'
+    // TODO: Fix first and last name
+	$givenName = "First";
+	$familyName = "Last";
+	try {
+      $gapps->createUser($edit['name'], $givenName, $familyName, $edit['pass']);	
+    } catch (Zend_Gdata_App_HttpException $e) {
+      drupal_set_message("There was a problem creating an associated Google Apps account: " . $e->getMessage());
+    }
   }
   if ($op == 'update') {
     // Update Google Apps details on 'update'
+    foreach (array_keys($array['roles']) as $rid) {
+      if (!in_array($rid, array(DRUPAL_ANONYMOUS_RID, DRUPAL_AUTHENTICATED_RID))) {
+        //db_query('INSERT INTO {users_roles} (uid, rid) VALUES (%d, %d)', $account->uid, $rid);
+      }
+    }
+
   }
   if ($op == 'delete') {
     // Suspend or delete user on 'delete'

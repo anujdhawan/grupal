@@ -2,10 +2,12 @@
 // $Id$
 
 /**
- * Set include_path (temporarily)
+ * Add Zend Framework to include path
  */
 $incPath = get_include_path();
-set_include_path(dirname(__FILE__) . PATH_SEPARATOR . $incPath);
+if (!in_array(dirname(__FILE__), split(PATH_SEPARATOR, $incPath))) {
+	set_include_path(dirname(__FILE__) . PATH_SEPARATOR . $incPath);	
+}
 
 /**
  * @see Zend_Loader
@@ -31,7 +33,7 @@ Zend_Loader::loadClass('Zend_Gdata_Gapps', dirname(__FILE__));
 /**
  * Restore include_path
  */
-set_include_path($incPath);
+//set_include_path($incPath);
 
 /**
  * Returns a HTTP client object with the appropriate headers for communicating
