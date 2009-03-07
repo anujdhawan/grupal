@@ -108,7 +108,9 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
 
   if ($op == 'update') {
     // Update Google Apps details on 'update'
-    if (($account->status != $edit['status']) || $edit['pass']) {
+    $gus = ($account->status != $edit['status']) && variable_get('grupal_update_suspend', 1);
+    $gup = $edit['pass'] && variable_get('grupal_update_password', 1);
+    if ($gus || $gup) {
 
       try {
         // Retrieve the user from Google Apps
@@ -116,12 +118,12 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
 
         if ($user) {
 	      // Update suspend status (if necessary)
-          if ($account->status != $edit['status']) {
+          if ($gus) {
             $user->login->suspended = ($edit['status'] == 0);
           }
 
           // Update password (if necessary)
-          if ($edit['pass']) {
+          if ($gup) {
 	        $user->login->password = $edit['pass'];
 	      }    
 
