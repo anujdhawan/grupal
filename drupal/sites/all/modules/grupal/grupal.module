@@ -96,7 +96,7 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
 	    // TODO: Implement givenName, familyName, probably stored in $account->data['given_name'] etc.
 	    // Refer to http://mameou.wordpress.com/2008/05/09/drupal-working-with-users/
         $user = $gapps->createUser(grupal_cleanname($edit['name']), $givenName, $familyName, $edit['pass']);
-        if ($gsc == 1) { // Suspend
+        if (($gsc == 1) || ($edit['status'] == 0)) { // Suspend
           	$user->login->suspended = true;
 	        $user->save();
         } // Enable (nothing to do)
@@ -150,7 +150,7 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
 
   if ($op == 'validate') {
     // TODO: Optionally prevent username changes
-    if (!variable_get('grupal_change_username', 0) && ($edit['name'] != $account->name)) {
+    if (!variable_get('grupal_change_username', 0) && (($account->uid) && ($edit['name'] != $account->name))) {
       form_set_error('name', t('Changing usernames is not permitted by Google Apps settings.'));
     }
   }
