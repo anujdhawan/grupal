@@ -5,10 +5,12 @@
  * Form API callback to validate the upload settings form.
  */
 function grupal_admin_settings_validate($form, &$form_state) {
+  /*
   $email_quota = $form_state['values']['grupal_email_quota'];
   if (!is_numeric($email_quota) || ($email_quota <= 0)) {
     form_set_error('grupal_email_quota', t('The email quota must be numeric.', array()));
   }
+  */
 }
 
 /**
