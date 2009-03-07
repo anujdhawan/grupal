@@ -1,0 +1,5 @@
+; $Id$
+name = Google Apps for Drupal
+description = Google Apps integrations for Drupal.
+package = Third-party integration
+core = 6.x
