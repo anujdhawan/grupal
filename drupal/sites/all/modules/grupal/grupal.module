@@ -30,13 +30,15 @@ module_load_include('inc', 'grupal', 'appsapis');
 * @return array An array of valid permissions for the grupal module
 */
 function grupal_perm() {
-  return array('have google apps account', 'administer google apps', 'administer grupal');
+  return array('have google apps account',
+               'administer google apps',
+               'administer grupal');
 } // function grupal_perm()
 
 /**
 * Display help and module information
 * @param path which path of the site we're displaying help
-* @param arg array that holds the current path as would be returned from arg() function
+* @param arg array that holds the current path as would be returned by arg()
 * @return help text for the path
 */
 function grupal_help($path, $arg) {
@@ -84,19 +86,27 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
   if (!variable_get('grupal_enabled', 0)) { return; } // Bail if disabled
 
   $grupal_domain = variable_get('grupal_domain', '');
-  $gsc = variable_get('grupal_status_created', 2); // 0 = Ignore, 1 = Suspend, 2 = Enable*
-  $gsd = variable_get('grupal_status_deleted', 1); // 0 = Ignore, 1 = Suspend*, 2 = Enable
+  // 0 = Ignore, 1 = Suspend, 2 = Enable*
+  $gsc = variable_get('grupal_status_created', 2);
+  // 0 = Ignore, 1 = Suspend*, 2 = Enable
+  $gsd = variable_get('grupal_status_deleted', 1);
 
   //drupal_set_message("For $account->uid, a $op operation was invoked.");
   if (($gsc != 0) || ($gsd != 0)) {
-    if (in_array($op, array('insert', 'update', 'delete'), $op) && ($grupal_domain != '')) {
+    if (in_array($op, array('insert', 'update', 'delete'), $op) &&
+      ($grupal_domain != '')) {
       try {
-        $client = getClientLoginHttpClient(variable_get('grupal_admin_email', ''), variable_get('grupal_admin_pass', ''));
+        $client = getClientLoginHttpClient(
+	      variable_get('grupal_admin_email', ''),
+	      variable_get('grupal_admin_pass', ''));
         assert($client);
-        $gapps = new Zend_Gdata_Gapps($client, variable_get('grupal_domain', ''));
+        $gapps = new Zend_Gdata_Gapps($client,
+	                                  variable_get('grupal_domain', ''));
         assert($gapps);
       } catch (Exception $e) { // Zend_Gdata_App_AuthException
-        drupal_set_message("Drupal was unable to authenticate to Google Apps:	" . $e->getMessage());
+        drupal_set_message(
+	      "Drupal was unable to authenticate to Google Apps: " .
+	        $e->getMessage());
       }
     }
   }
@@ -108,22 +118,26 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
 	
 	if ($gsc != 0) { // Ignore
       try {
-	    // TODO: Implement givenName, familyName, probably stored in $account->data['given_name'] etc.
-	    // Refer to http://mameou.wordpress.com/2008/05/09/drupal-working-with-users/
-        $user = $gapps->createUser(grupal_cleanname($edit['name']), $givenName, $familyName, $edit['pass']);
+	    // TODO: Implement full name stored in $account->data['given_name']?
+	    // http://mameou.wordpress.com/2008/05/09/drupal-working-with-users/
+        $user = $gapps->createUser(grupal_cleanname($edit['name']),
+                                   $givenName, $familyName, $edit['pass']);
         if (($gsc == 1) || ($edit['status'] == 0)) { // Suspend
           	$user->login->suspended = true;
 	        $user->save();
         } // Enable (nothing to do)
       } catch (Exception $e) { // Zend_Gdata_App_HttpException
-        drupal_set_message("There was a problem creating an associated Google Apps account: " . $e->getMessage());
+        drupal_set_message(
+	      "There was a problem creating an associated Google Apps account: " .
+	      $e->getMessage());
       }
     }
   }
 
   if ($op == 'update') {
     // Update Google Apps details on 'update'
-    $gus = ($account->status != $edit['status']) && variable_get('grupal_update_suspend', 1);
+    $gus = ($account->status != $edit['status']) &&
+             variable_get('grupal_update_suspend', 1);
     $gup = $edit['pass'] && variable_get('grupal_update_password', 1);
     if ($gus || $gup) {
 
@@ -144,13 +158,17 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
 
           // Save the user back to Google Apps
           $user->save();
-          drupal_set_message("Associated Google Apps user updated: " . grupal_cleanname($edit['name']));
+          drupal_set_message("Associated Google Apps user updated: " .
+            grupal_cleanname($edit['name']));
 
         } else {
-          drupal_set_message("No associated Google Apps user was found:" . grupal_cleanname($edit['name']));
+          drupal_set_message("No associated Google Apps user was found:" .
+            grupal_cleanname($edit['name']));
         }
       } catch (Exception $e) {
-        drupal_set_message("There was a problem updating an associated Google Apps account: " . $e->getMessage());
+        drupal_set_message(
+	      "There was a problem updating an associated Google Apps account: " .
+          $e->getMessage());
       }
     }
     /*
@@ -165,8 +183,10 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
 
   if ($op == 'validate') {
     // Prevent username changes to existing accounts (uid!=0) per Google Apps
-    if (!variable_get('grupal_change_username', 0) && (($account->uid) && ($edit['name'] != $account->name))) {
-      form_set_error('name', t('Changing usernames is not permitted by Google Apps settings.'));
+    if (!variable_get('grupal_change_username', 0) && (($account->uid) &&
+          ($edit['name'] != $account->name))) {
+      form_set_error('name',
+        t('Changing usernames is not permitted by Google Apps settings.'));
     }
   }
 
@@ -180,13 +200,15 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
             $user->login->suspended = true;
             $user->save();
           } else {
-            drupal_set_message("No associated Google Apps user was found:" . grupal_cleanname($account->name));
+            drupal_set_message("No associated Google Apps user was found:" .
+              grupal_cleanname($account->name));
           }
         } elseif ($gsd == 2) { // Delete
           $gapps->deleteUser(grupal_cleanname($account->name));
         }
       } catch (Exception $e) { // Zend_Gdata_App_HttpException
-        drupal_set_message("There was a problem deleting/suspending an associated Google Apps account: " . $e->getMessage());
+        drupal_set_message("There was a problem deleting/suspending an " .
+          "associated Google Apps account: " . $e->getMessage());
       }
     }
   }
