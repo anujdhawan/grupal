@@ -1,7 +1,38 @@
-grupal - Google Apps integration for Drupal CMS
+grupal - Drupal® plus seamless integration with Google Apps
 
 Copyright © 2009 Sam Johnston <samj@samj.net> - http://samj.net/
                  Australian Online Solutions Pty Ltd - http://www.aos.net.au/
+
+Supports
+========
+ * Creating users in Google Apps when created in Drupal (suspended or enabled)
+ * Suspending users in Google Apps when blocked in Drupal
+ * Synchronising passwords in Google Apps when updated in Drupal
+ * Suspending or deleting users in Google Apps when deleted in Drupal 
+
+Features
+========
+ * Uses Zend Framework for Google Apps APIs
+ * Open Source (GPLv3) licensing
+ * Performance optimisations only talk to Google when absolutely necessary
+ * Security feature requires Google Apps admin password for all changes
+ * Ability to intercept and prevent username updates (which break links) 
+
+Warning
+=======
+ * The Google Apps Provisioning API on which this code depends is not available in the free Standard Edition.
+ * The GNU Affero General Public License applies to this code and as such:
+  o It is compatible with GPLv2 or later code, not GPLv2 only (everything in the Drupal CVS is compatible)
+  o Installations "must prominently offer all users interacting with it remotely through a computer network an opportunity to receive the Corresponding Source" for Drupal itself as well as all modules, themes, etc. 
+
+Requires
+========
+ * Drupal 6.x
+ * Google Apps
+  o Premier Edition
+  o Education Edition
+  o Non-profit Edition
+  o Partner Edition 
 
 Getting Started
 ===============
@@ -29,3 +60,5 @@ References
  - Google Apps: http://google.com/a/
  - Sam Johnston: http://samj.net/
  - Australian Online Solutions: http://www.aos.net.au/
+
+         Drupal® is a registered trademark of Dries Buytaert
