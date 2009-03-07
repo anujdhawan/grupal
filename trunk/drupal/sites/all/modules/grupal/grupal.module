@@ -147,6 +147,14 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
     */
   }
 
+
+  if ($op == 'validate') {
+    // TODO: Optionally prevent username changes
+    if (!variable_get('grupal_change_username', 0) && ($edit['name'] != $account->name)) {
+      form_set_error('name', t('Changing usernames is not permitted by Google Apps settings.'));
+    }
+  }
+
   if ($op == 'delete') {
     // Suspend or delete user on 'delete'
 	if ($gsd != 0) { // Ignore
@@ -162,7 +170,7 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
         } elseif ($gsd == 2) { // Delete
           $gapps->deleteUser(grupal_cleanname($account->name));
         }
-      } catch (Zend_Gdata_App_HttpException $e) {
+      } catch (Exception $e) { // Zend_Gdata_App_HttpException
         drupal_set_message("There was a problem deleting/suspending an associated Google Apps account: " . $e->getMessage());
       }
     }

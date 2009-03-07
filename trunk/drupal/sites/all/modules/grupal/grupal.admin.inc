@@ -93,6 +93,13 @@ function grupal_admin_settings() {
     '#options' => array(t('Disabled'), t('Enabled')),
     '#description' => t("Specify whether accounts should be suspended when blocked (and vice versa).")
   );
+  $form['global']['grupal_change_username'] = array(
+    '#type' => 'radios',
+    '#title' => t('Permit Drupal username changes'),
+    '#default_value' => variable_get('grupal_change_username', 0),
+    '#options' => array(t('Disabled'), t('Enabled')),
+    '#description' => t("Specify whether Drupal username changes are permitted (which can break links between users).")
+  );
 
   $form['email'] = array(
     '#type' => 'fieldset',
