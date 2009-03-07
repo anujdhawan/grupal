@@ -93,6 +93,8 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
 	
 	if ($gsc != 0) { // Ignore
       try {
+	    // TODO: Implement givenName, familyName, probably stored in $account->data['given_name'] etc.
+	    // Refer to http://mameou.wordpress.com/2008/05/09/drupal-working-with-users/
         $user = $gapps->createUser(grupal_cleanname($edit['name']), $givenName, $familyName, $edit['pass']);
         if ($gsc == 1) { // Suspend
           	$user->login->suspended = true;
@@ -106,7 +108,36 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
 
   if ($op == 'update') {
     // Update Google Apps details on 'update'
+    if (($account->status != $edit['status']) || $edit['pass']) {
+
+      try {
+        // Retrieve the user from Google Apps
+        $user = $gapps->retrieveUser(grupal_cleanname($edit['name']));
+
+        if ($user) {
+	      // Update suspend status (if necessary)
+          if ($account->status != $edit['status']) {
+            $user->login->suspended = ($edit['status'] == 0);
+          }
+
+          // Update password (if necessary)
+          if ($edit['pass']) {
+	        $user->login->password = $edit['pass'];
+	      }    
+
+          // Save the user back to Google Apps
+          $user->save();
+          drupal_set_message("Associated Google Apps user updated: " . grupal_cleanname($edit['name']));
+
+        } else {
+          drupal_set_message("No associated Google Apps user was found:" . grupal_cleanname($edit['name']));
+        }
+      } catch (Exception $e) {
+        drupal_set_message("There was a problem updating an associated Google Apps account: " . $e->getMessage());
+      }
+    }
     /*
+    // TODO: Update role/group memberships
     foreach (array_keys($array['roles']) as $rid) {
       if (!in_array($rid, array(DRUPAL_ANONYMOUS_RID, DRUPAL_AUTHENTICATED_RID))) {
         //db_query('INSERT INTO {users_roles} (uid, rid) VALUES (%d, %d)', $account->uid, $rid);
