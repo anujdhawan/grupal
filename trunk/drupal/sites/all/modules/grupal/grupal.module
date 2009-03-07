@@ -4,9 +4,7 @@
 /**
 * Display help and module information
 */
-//require_once("./appsapis.php")
-//require_once("provisioning.php")
-module_load_include('php', 'grupal', 'appsapis');
+module_load_include('inc', 'grupal', 'appsapis');
 
 /**
 * Valid permissions for this module
@@ -74,7 +72,6 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
   if (($gsc != 0) || ($gsd != 0)) {
     if (in_array($op, array('insert', 'update', 'delete'), $op) && ($grupal_domain != '')) {
       try {
-		//drupal_set_message("Logging into domain ".variable_get('grupal_domain', '')." as user ".variable_get('grupal_admin_email', '')." with password ".variable_get('grupal_admin_pass', ''));
         $client = getClientLoginHttpClient(variable_get('grupal_admin_email', ''), variable_get('grupal_admin_pass', ''));
         assert($client);
         $gapps = new Zend_Gdata_Gapps($client, variable_get('grupal_domain', ''));
@@ -87,7 +84,6 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
 
   if ($op == 'insert') {
     // Create a new account on 'insert'
-    // TODO: Fix first and last name
 	$givenName = "First";
 	$familyName = "Last";
 	
@@ -149,7 +145,7 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
 
 
   if ($op == 'validate') {
-    // TODO: Optionally prevent username changes
+    // Prevent username changes to existing accounts (uid!=0) per Google Apps
     if (!variable_get('grupal_change_username', 0) && (($account->uid) && ($edit['name'] != $account->name))) {
       form_set_error('name', t('Changing usernames is not permitted by Google Apps settings.'));
     }
