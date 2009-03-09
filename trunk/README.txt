@@ -14,18 +14,26 @@ Features
 ========
  * Uses Zend Framework for Google Apps APIs
  * Open Source (AGPLv3) licensing
- * Commercial licensing and support for both Grupal and Google Apps available from Australian Online Solutions (a Google Solution Provider). 
+ * Commercial licensing and support for both Grupal and Google Apps available
+   from Australian Online Solutions (a Google Solution Provider). 
  * Performance optimisations only talk to Google when absolutely necessary
  * Security feature requires Google Apps admin password for all changes
  * Ability to intercept and prevent username updates (which break links) 
 
 Warning
 =======
- * The Google Apps Provisioning API on which this code depends is not available in the free Standard Edition.
+ * The Google Apps Provisioning API on which this code depends is not available
+   in the free Standard Edition.
+ * For security reasons ensure that AllowOverride is configured appropriately
+   such that the .htaccess files take effect
  * The GNU Affero General Public License applies to this code and as such:
-  o It is compatible with GPLv2 or later code, not GPLv2 only (everything in the Drupal CVS is compatible)
-  o Installations "must prominently offer all users interacting with it remotely through a computer network an opportunity to receive the Corresponding Source" for Drupal itself as well as all modules, themes, etc. 
- * If this is unacceptable to you then affordable commerical licenses are available from Australian Online Solutions.
+  o It is compatible with GPLv2 or later code, not GPLv2 only (everything in
+    the Drupal CVS is compatible)
+  o Installations "must prominently offer all users interacting with it
+    remotely through a computer network an opportunity to receive the
+    Corresponding Source" for Drupal itself as well as all modules, themes, etc
+ * If this is unacceptable to you then affordable commerical licenses are
+   available from Australian Online Solutions.
 
 Requires
 ========
