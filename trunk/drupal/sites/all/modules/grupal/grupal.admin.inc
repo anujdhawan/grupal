@@ -136,7 +136,7 @@ function grupal_admin_settings() {
   );
   $form['licensing']['grupal_display_footer'] = array(
     '#type' => 'radios',
-    '#title' => t('Display license compliance footer'),
+    '#title' => t('Display footer for license compliance'),
     '#default_value' => variable_get('grupal_display_footer', 1),
     '#options' => array(t('Disabled'), t('Enabled')),
     '#description' => t('Specify whether the license information should ' .
