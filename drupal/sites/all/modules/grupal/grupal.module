@@ -30,9 +30,9 @@ module_load_include('inc', 'grupal', 'appsapis');
 * @return array An array of valid permissions for the grupal module
 */
 function grupal_perm() {
-  return array('use google apps',
+  return array('have google apps account',
                'administer google apps',
-               'administer grupal'); // TODO implement this
+               'administer grupal');
 } // function grupal_perm()
 
 /**
@@ -68,29 +68,8 @@ END
 */
 function grupal_menu() {
 
-  $items['grupal/signin'] = array(
-    'title' => t('Google Apps SAML 2 IdP Sign In'),
-    'page callback' => 'grupal_single_sign_in',
-    'access arguments' => array('access content'),
-    'file' => 'grupal.sso.inc',
-    'type' => MENU_CALLBACK,
-  );
-  $items['grupal/signout'] = array(
-    'title' => t('Google Apps SAML 2 IdP Sign Out'),
-    'page callback' => 'grupal_single_sign_out',
-    'access arguments' => array('access content'),
-    'file' => 'grupal.sso.inc',
-    'type' => MENU_CALLBACK,
-  );
-  $items['grupal/password'] = array(
-    'title' => t('Google Apps SAML 2 IdP Password Change'),
-    'page callback' => 'grupal_password',
-    'access arguments' => array('use google apps'),
-    'file' => 'grupal.sso.inc',
-    'type' => MENU_CALLBACK,
-  );
   $items['admin/settings/grupal'] = array(
-    'title' => t('Grupal settings'),
+    'title' => t('Google Apps settings'),
 	'description' => 'Configuration of Google Apps integration points',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('grupal_admin_settings'),
@@ -164,7 +143,6 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
   }
 
   if ($op == 'update') {
-	drupal_set_message(var_dump($account));
     // Update Google Apps details on 'update'
     $gus = ($account->status != $edit['status']) &&
              variable_get('grupal_update_suspend', 1);
@@ -213,7 +191,7 @@ function grupal_user($op, &$edit, &$account, $category = NULL) {
 
   if ($op == 'validate') {
     // Prevent username changes to existing accounts (uid!=0) per Google Apps
-    if (!variable_get('grupal_change_username', 0) && (($account->uid) && $edit['name'] &&
+    if (!variable_get('grupal_change_username', 0) && (($account->uid) &&
           ($edit['name'] != $account->name))) {
       form_set_error('name',
         t('Changing usernames is not permitted by Google Apps settings.'));
