@@ -19,6 +19,7 @@ Features
  * Performance optimisations only talk to Google when absolutely necessary
  * Security feature requires Google Apps admin password for all changes
  * Ability to intercept and prevent username updates (which break links) 
+ * Integrated Single Sign On (SSO)
 
 Warning
 =======
