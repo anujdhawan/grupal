@@ -1,0 +1,45 @@
+<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="_fccd715a0a1338fa12db2fdd5a09fa177afe432127" InResponseTo="gedigaenhmclklapghndilbhmjgdpbhibgcmfadh" Version="2.0" IssueInstant="2009-03-15T18:33:43Z" Destination="https://www.google.com/a/samj.net/acs">
+  <saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">http://localhost/~samj/simplesamlphp/www/saml2/idp/metadata.php</saml:Issuer>
+  <samlp:Status>
+    <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
+  </samlp:Status>
+  <saml:Assertion Version="2.0" ID="pfx6a911ad4-290d-3041-e398-722cd2c7d54d" IssueInstant="2009-03-15T18:33:43Z">
+    <saml:Issuer>http://localhost/~samj/simplesamlphp/www/saml2/idp/metadata.php</saml:Issuer>
+    <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+      <ds:SignedInfo>
+        <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+        <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+        <ds:Reference URI="#pfx6a911ad4-290d-3041-e398-722cd2c7d54d">
+          <ds:Transforms>
+            <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+            <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+          </ds:Transforms>
+          <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+          <ds:DigestValue>1v0sZ9XrKdn1JTcWcvmRXQmFSqk=</ds:DigestValue>
+        </ds:Reference>
+      </ds:SignedInfo>
+      <ds:SignatureValue>aucEbZ33nIGfXEt/1DSEq6n8lde6QXhZL5ejV8bmu6rfb/lyYWgVMsYFb2PQfHuYKtW5Dk62upwgttC9gmbo3CKrV+8AsH3KarxMgUN1QXndDT5MiJgFQqsg8+J6o19Lt4F+KtrlLFmOA9B2sN1ZFe2MfXH5rUa+NHMzT5G3PtM=</ds:SignatureValue>
+      <ds:KeyInfo>
+        <ds:X509Data>
+          <ds:X509Certificate>MIICEjCCAXugAwIBAgIJAKPRYK4fT0+pMA0GCSqGSIb3DQEBBQUAMBExDzANBgNVBAMTBmdydXBhbDAeFw0wOTAzMTIxMTUyMzZaFw0wOTA0MTExMTUyMzZaMBExDzANBgNVBAMTBmdydXBhbDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAvFNHN9fztG8ABXTLa+QMQhyHZHtXGEiBQxf5FRN/M3RUyg4dR7l/nFBmX2Ji85hS1AGOx8lKxP2YzLx0FX0zMHXojFMIzBrcUroVYKfa21iaRvP4GyxTSEEakhf1ULXyXrgL8vYk5EJRMJRDmdquJt6pp+TdrgS54q4snerDGF0CAwEAAaNyMHAwHQYDVR0OBBYEFC9J64b1X39q5IhzccPAqehsFTjuMEEGA1UdIwQ6MDiAFC9J64b1X39q5IhzccPAqehsFTjuoRWkEzARMQ8wDQYDVQQDEwZncnVwYWyCCQCj0WCuH09PqTAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAGpe6Z7OsRyUjhbeLov2SDbV53TCa/1pEcxCHZxXYDXBpQA7V2hvoIFXmd+DapEF4iu9M4a026H+ZRrTpGSlcphv3tJLlii+MicXiLvaYz4eQsWsQad8EQsX/MbLz/rFB9Iqg4yzaBKptFHuN/wRkyqe2snGG6TrUanrsz+HjMRF</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </ds:Signature>
+    <saml:Subject>
+      <saml:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress" SPNameQualifier="google.com">samj</saml:NameID>
+      <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+        <saml:SubjectConfirmationData NotOnOrAfter="2009-03-15T18:38:43Z" InResponseTo="gedigaenhmclklapghndilbhmjgdpbhibgcmfadh" Recipient="https://www.google.com/a/samj.net/acs"/>
+      </saml:SubjectConfirmation>
+    </saml:Subject>
+    <saml:Conditions NotBefore="2009-03-15T18:33:13Z" NotOnOrAfter="2009-03-16T02:33:43Z">
+      <saml:AudienceRestriction>
+        <saml:Audience>google.com</saml:Audience>
+      </saml:AudienceRestriction>
+    </saml:Conditions>
+    <saml:AuthnStatement AuthnInstant="2009-03-15T18:33:43Z" SessionIndex="_ba91daa6da784538d41192d05ce1bc1f31e0e94de7">
+      <saml:AuthnContext>
+        <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:Password</saml:AuthnContextClassRef>
+      </saml:AuthnContext>
+    </saml:AuthnStatement>
+  </saml:Assertion>
+</samlp:Response>
