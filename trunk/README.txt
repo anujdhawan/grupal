@@ -51,6 +51,8 @@ Stable releases:
  - Download the latest tarball from http://code.google.com/p/grupal/downloads/list
  - Extract to temporary directory
  - Move grupal module directory to sites/all/modules directory
+ - To generate a key for SSO use a command like:
+`openssl req -new -x509 -newkey rsa:2048 -keyout grupal.key -out grupal.crt -subj '/CN=grupal/' -nodes`
 
 Development version:
  - Obtain the latest version of Drupal (developed for Drupal 6.x)
