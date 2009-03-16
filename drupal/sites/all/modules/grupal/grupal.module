@@ -30,9 +30,9 @@ module_load_include('inc', 'grupal', 'appsapis');
 * @return array An array of valid permissions for the grupal module
 */
 function grupal_perm() {
-  return array('have google apps account',
+  return array('use google apps',
                'administer google apps',
-               'administer grupal');
+               'administer grupal'); // TODO implement this
 } // function grupal_perm()
 
 /**
@@ -68,8 +68,29 @@ END
 */
 function grupal_menu() {
 
+  $items['grupal/signin'] = array(
+    'title' => t('Google Apps SAML 2 IdP Sign In'),
+    'page callback' => 'grupal_single_sign_in',
+    'access arguments' => array('access content'),
+    'file' => 'grupal.sso.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['grupal/signout'] = array(
+    'title' => t('Google Apps SAML 2 IdP Sign Out'),
+    'page callback' => 'grupal_single_sign_out',
+    'access arguments' => array('access content'),
+    'file' => 'grupal.sso.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['grupal/password'] = array(
+    'title' => t('Google Apps SAML 2 IdP Password Change'),
+    'page callback' => 'grupal_password',
+    'access arguments' => array('use google apps'),
+    'file' => 'grupal.sso.inc',
+    'type' => MENU_CALLBACK,
+  );
   $items['admin/settings/grupal'] = array(
-    'title' => t('Google Apps settings'),
+    'title' => t('Grupal settings'),
 	'description' => 'Configuration of Google Apps integration points',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('grupal_admin_settings'),
