@@ -177,12 +177,6 @@ function grupal_admin_settings() {
     '#default_value' => variable_get('grupal_sso_certificate', ''),
     '#description' => t("X.509 certificate for Single Sign On (SSO) in PEM format.")
   );
-  $form['licensing'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Google Apps module licensing'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
 /* 
   $form['email'] = array(
     '#type' => 'fieldset',
