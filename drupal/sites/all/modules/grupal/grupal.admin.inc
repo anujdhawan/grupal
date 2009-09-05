@@ -6,18 +6,19 @@
  * 
  * $Id$
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- * 
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
 /**
@@ -181,16 +182,6 @@ function grupal_admin_settings() {
     '#title' => t('Google Apps module licensing'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
-  );
-  $form['licensing']['grupal_display_footer'] = array(
-    '#type' => 'radios',
-    '#title' => t('Display footer for license compliance'),
-    '#default_value' => variable_get('grupal_display_footer', 1),
-    '#options' => array(t('Disabled'), t('Enabled')),
-    '#description' => t('Specify whether the license information should ' .
-      'be displayed in the footer <strong>as required by the ' .
-      '<a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html">' .
-      'AGPLv3</a></strong>.')
   );
 /* 
   $form['email'] = array(
